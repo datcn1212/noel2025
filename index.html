@@ -574,6 +574,13 @@
         }
 
         function startSystem() {
+            let password;
+            do {
+                password = prompt("Ngày tỏ tình thành công là (điền DDMMYYYY, ví dụ 12122025):");
+                if (password !== "18102025") {
+                    alert("Sai rồiiiiiiii");
+                }
+            } while (password !== "18102025");
             document.getElementById('btnStart').style.display = 'none';
             bgMusic.play().catch(e => console.log(e));
             init3D();
