@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magic Christmas - Final Clean</title>
@@ -14,13 +15,13 @@
         body { margin: 0; overflow: hidden; background-color: #000000; font-family: 'Segoe UI', sans-serif; }
         #canvas-container { width: 100%; height: 100vh; display: block; }
         
-        /* UI Center Vandiep */
+        /* UI Center  */
         #ui-layer {
             position: absolute; bottom: 30px; width: 100%;
             text-align: center; pointer-events: none; z-index: 100;
         }
         
-        /* Guide text Vandiep */
+        /* Guide text  */
         .guide { 
             color: rgba(255, 255, 255, 0.6); 
             font-size: 13px; 
@@ -39,7 +40,7 @@
         }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        /* Camera Preview Vandiep */
+        /* Camera Preview  */
         #camera-preview {
             position: absolute; top: 15px; right: 15px;
             width: 120px; height: 90px;
@@ -47,7 +48,7 @@
             transform: scaleX(-1); opacity: 0.6; border-radius: 8px;
         }
         
-        /* Vandiep */
+        /*  */
         #copyright {
             position: absolute;
             bottom: 10px;
@@ -66,17 +67,17 @@
 <body>
     <div id="error-log"></div>
     
-    <!-- UI Vandiep -->
+    <!-- UI  -->
     <div id="ui-layer">
-        <!-- Vandiep -->
+        <!--  -->
         <div class="guide">
             🖐 <b>Open:</b> Explode &nbsp;|&nbsp; 🫶 <b>Heart:</b> Love &nbsp;|&nbsp; ✊ <b>Fist:</b> Tree
         </div>
         <button id="btnStart" onclick="startSystem()">START MAGIC</button>
     </div>
 
-    <!-- Vandiep -->
-    <div id="copyright">© by vandiep</div>
+    <!--  -->
+    <div id="copyright">© by </div>
 
     <div id="canvas-container"></div>
     <video class="input_video" style="display:none"></video>
@@ -84,14 +85,14 @@
 
     <script>
         // ==========================================
-        // 1. RESOURCES CONFIG Vandiep
+        // 1. RESOURCES CONFIG 
         // ==========================================
         const MUSIC_URL = "./audio.mp3";
         let bgMusic = new Audio(MUSIC_URL);
         bgMusic.loop = true; bgMusic.volume = 1.0;
 
         const loader = new THREE.TextureLoader();
-        const photoFiles = ['./image1.jpg', './image2.jpg', './image3.jpg', './image4.png', './image5.jpg'];
+        const photoFiles = ['./image1.jpeg', './image2.jpeg', './image3.jpeg', './image4.jpeg', './image5.jpeg'];
         const photoTextures = [];
         photoFiles.forEach((f, i) => photoTextures[i] = loader.load(f));
 
@@ -131,7 +132,7 @@
         };
 
         // ==========================================
-        // 2. SYSTEM CONFIG Vandiep
+        // 2. SYSTEM CONFIG 
         // ==========================================
         const CONFIG = {
             goldCount: 2000,
@@ -153,7 +154,7 @@
         let handX = 0.5;
 
         // ==========================================
-        // 3. THREE.JS SYSTEM Vandiep
+        // 3. THREE.JS SYSTEM 
         // ==========================================
         function init3D() {
             const container = document.getElementById('canvas-container');
@@ -186,7 +187,7 @@
             const phases = []; 
             
             for(let i=0; i<count; i++) {
-                // --- TREE Vandiep ---
+                // --- TREE  ---
                 const h = Math.random() * CONFIG.treeHeight; 
                 const y = h - CONFIG.treeHeight / 2;
                 let radiusRatio = (type === 'gold') ? Math.sqrt(Math.random()) : 0.9 + Math.random()*0.1;
@@ -195,7 +196,7 @@
                 const theta = Math.random() * Math.PI * 2;
                 pTreeTargets.push(r * Math.cos(theta), y, r * Math.sin(theta));
 
-                // --- EXPLODE Vandiep ---
+                // --- EXPLODE  ---
                 const u = Math.random();
                 const v = Math.random();
                 const phi = Math.acos(2 * v - 1);
@@ -204,12 +205,12 @@
                 const rad = CONFIG.explodeRadius * Math.cbrt(Math.random()) * radMult;
                 pExplodeTargets.push(rad * Math.sin(phi) * Math.cos(lam), rad * Math.sin(phi) * Math.sin(lam), rad * Math.cos(phi));
 
-                // --- SOFT HEART Vandiep ---
+                // --- SOFT HEART  ---
                 const tHeart = Math.random() * Math.PI * 2;
                 let hx = 16 * Math.pow(Math.sin(tHeart), 3);
                 let hy = 13 * Math.cos(tHeart) - 5 * Math.cos(2*tHeart) - 2 * Math.cos(3*tHeart) - Math.cos(4*tHeart);
                 
-                const rFill = Math.pow(Math.random(), 0.3); // Soft fill Vandiep
+                const rFill = Math.pow(Math.random(), 0.3); // Soft fill 
                 hx *= rFill; hy *= rFill;
                 let hz = (Math.random() - 0.5) * 8 * rFill; 
                 
@@ -221,7 +222,7 @@
                 const scaleH = 2.2;
                 pHeartTargets.push(hx * scaleH, hy * scaleH + 5, hz); 
 
-                // --- INIT Vandiep ---
+                // --- INIT  ---
                 pPositions.push(pTreeTargets[i*3], pTreeTargets[i*3+1], pTreeTargets[i*3+2]);
                 sizes.push(size);
                 phases.push(Math.random() * Math.PI * 2);
@@ -231,7 +232,7 @@
             geo.setAttribute('position', new THREE.Float32BufferAttribute(pPositions, 3));
             geo.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
             
-            // Init colors Vandiep
+            // Init colors 
             const colors = new Float32Array(count * 3);
             const baseColor = new THREE.Color();
             if(type === 'gold') baseColor.setHex(0xFFD700);
@@ -283,7 +284,7 @@
         }
 
         function createDecorations() {
-            // MERRY CHRISTMAS Vandiep
+            // MERRY CHRISTMAS 
             const canvas = document.createElement('canvas');
             canvas.width = 1024; canvas.height = 256;
             const ctx = canvas.getContext('2d');
@@ -297,35 +298,134 @@
             titleMesh.position.set(0, 50, 0);
             scene.add(titleMesh);
 
-            // STAR Vandiep
+            // STAR 
             const starCanvas = document.createElement('canvas');
-            starCanvas.width = 128; starCanvas.height = 128;
+            starCanvas.width = 256; 
+            starCanvas.height = 256;
+
             const sCtx = starCanvas.getContext('2d');
-            sCtx.fillStyle = "#FFFF00"; sCtx.shadowColor="#FFF"; sCtx.shadowBlur=20;
+
+            // smoother edges
+            sCtx.imageSmoothingEnabled = true;
+
+            // center
+            const cx = 128, cy = 128;
+
+            // radii
+            const outer = 110;
+            const inner = 45;
+
+            // ===== Halo Glow background =====
             sCtx.beginPath();
-            const cx=64, cy=64, outer=50, inner=20;
-            for(let i=0; i<5; i++){
-                sCtx.lineTo(cx + Math.cos((18+i*72)/180*Math.PI)*outer, cy - Math.sin((18+i*72)/180*Math.PI)*outer);
-                sCtx.lineTo(cx + Math.cos((54+i*72)/180*Math.PI)*inner, cy - Math.sin((54+i*72)/180*Math.PI)*inner);
+            const halo = sCtx.createRadialGradient(cx, cy, 10, cx, cy, 120);
+            halo.addColorStop(0, "rgba(255,255,200,1)");
+            halo.addColorStop(0.55, "rgba(255,255,80,0.6)");
+            halo.addColorStop(1, "rgba(255,255,0,0)");
+            sCtx.fillStyle = halo;
+            sCtx.arc(cx, cy, 120, 0, Math.PI * 2);
+            sCtx.fill();
+
+            // ===== Star Shape =====
+            sCtx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angleOuter = (18 + i * 72) * Math.PI / 180;
+                const angleInner = (54 + i * 72) * Math.PI / 180;
+
+                sCtx.lineTo(cx + Math.cos(angleOuter) * outer,
+                            cy - Math.sin(angleOuter) * outer);
+                sCtx.lineTo(cx + Math.cos(angleInner) * inner,
+                            cy - Math.sin(angleInner) * inner);
             }
-            sCtx.closePath(); sCtx.fill();
+            sCtx.closePath();
+
+            // gold gradient
+            const starGrad = sCtx.createLinearGradient(0, 0, 0, 256);
+            starGrad.addColorStop(0, "#ffffea");
+            starGrad.addColorStop(0.35, "#fff200");
+            starGrad.addColorStop(0.65, "#ffbf00");
+            starGrad.addColorStop(1, "#ff9d00");
+
+            sCtx.fillStyle = starGrad;
+            sCtx.shadowColor = "rgba(255,255,150,1)";
+            sCtx.shadowBlur = 30;
+            sCtx.fill();
+
+            // ===== Texture, material, mesh =====
             const starTex = new THREE.CanvasTexture(starCanvas);
-            const starMat = new THREE.MeshBasicMaterial({ map: starTex, transparent: true, blending: THREE.AdditiveBlending });
-            starMesh = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), starMat);
-            starMesh.position.set(0, CONFIG.treeHeight/2 + 2, 0);
+            starTex.needsUpdate = true;
+
+            const starMat = new THREE.MeshBasicMaterial({ 
+                map: starTex, 
+                transparent: true, 
+                blending: THREE.AdditiveBlending 
+            });
+
+            starMesh = new THREE.Mesh(
+                new THREE.PlaneGeometry(16, 16),
+                starMat
+            );
+
+            starMesh.position.set(0, CONFIG.treeHeight/2 + 3, 0);
+            starMesh.renderOrder = 1; 
             scene.add(starMesh);
 
-            // I LOVE YOU TEXT Vandiep
+            // I LOVE YOU TEXT 
             const loveCanvas = document.createElement('canvas');
-            loveCanvas.width = 1024; loveCanvas.height = 256;
+            loveCanvas.width = 2048;
+            loveCanvas.height = 512;
+
             const lCtx = loveCanvas.getContext('2d');
-            lCtx.font = 'bold 120px "Segoe UI", sans-serif';
-            lCtx.fillStyle = '#FF69B4'; lCtx.textAlign = 'center';
-            lCtx.shadowColor = "#FF1493"; lCtx.shadowBlur = 40; 
-            lCtx.fillText("I LOVE YOU ❤️", 512, 130);
+            lCtx.imageSmoothingEnabled = true;
+
+            // ==== Background transparency ====
+            lCtx.clearRect(0, 0, loveCanvas.width, loveCanvas.height);
+
+            // ==== Text settings ====
+            const text = "  CND  ❤️  PTNA";
+            lCtx.textAlign = "center";
+            lCtx.textBaseline = "middle";
+
+            // ==== *** Changed only this line ***
+            lCtx.font = 'italic 120px "Great Vibes", cursive';
+
+            // ==== Main gradient fill ====
+            const grad = lCtx.createLinearGradient(0, 0, 0, loveCanvas.height);
+            grad.addColorStop(0,   "#fff0f8");
+            grad.addColorStop(0.30,"#ffb6d9");
+            grad.addColorStop(0.65,"#ff69b4");
+            grad.addColorStop(1,   "#ff1493");
+
+            lCtx.fillStyle = grad;
+
+            // ==== Glow halo ====
+            lCtx.shadowColor = "rgba(255,20,147,0.9)";
+            lCtx.shadowBlur  = 60;
+            lCtx.shadowOffsetX = 0;
+            lCtx.shadowOffsetY = 0;
+
+            // ==== Draw fill ====
+            lCtx.fillText(text, loveCanvas.width / 2, loveCanvas.height / 2);
+
+            // ==== Outline stroke to make text crisp ====
+            lCtx.lineWidth = 10;
+            lCtx.strokeStyle = "rgba(255,255,255,0.65)";
+            lCtx.strokeText(text, loveCanvas.width / 2, loveCanvas.height / 2);
+
+            // ==== Apply to Three.js ====
             const loveTex = new THREE.CanvasTexture(loveCanvas);
-            const loveMat = new THREE.MeshBasicMaterial({ map: loveTex, transparent: true, blending: THREE.AdditiveBlending });
-            loveMesh = new THREE.Mesh(new THREE.PlaneGeometry(70, 18), loveMat);
+            loveTex.needsUpdate = true;
+
+            const loveMat = new THREE.MeshBasicMaterial({
+                map: loveTex,
+                transparent: true,
+                blending: THREE.AdditiveBlending
+            });
+
+            loveMesh = new THREE.Mesh(
+                new THREE.PlaneGeometry(95, 24),
+                loveMat
+            );
+
             loveMesh.position.set(0, 0, 20);
             loveMesh.visible = false;
             scene.add(loveMesh);
@@ -342,13 +442,13 @@
             const targetKey = (targetState === 'TREE') ? 'tree' : (targetState === 'HEART' ? 'heart' : 'explode');
             const targets = group.geometry.userData[(targetState === 'PHOTO') ? 'explode' : targetKey];
 
-            // 1. Vandiep
+            // 1. 
             for(let i=0; i<positions.length; i++) {
                 positions[i] += (targets[i] - positions[i]) * speed;
             }
             group.geometry.attributes.position.needsUpdate = true;
             
-            // 2. COLOR & SIZE Vandiep
+            // 2. COLOR & SIZE 
             const count = positions.length / 3;
             
             if (targetState === 'TREE') {
@@ -376,7 +476,7 @@
                 const beatScale = 1 + Math.abs(Math.sin(time * 3)) * 0.15;
                 group.scale.set(beatScale, beatScale, beatScale);
 
-                // Vandiep
+                // 
                 for(let i=0; i<count; i++) {
                     colors[i*3] = baseColor.r; colors[i*3+1] = baseColor.g; colors[i*3+2] = baseColor.b;
                     if (i % 3 === 0) sizes[i] = baseSize;
